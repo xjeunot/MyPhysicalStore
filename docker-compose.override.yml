@@ -1,0 +1,96 @@
+version: '3.4'
+
+services:
+  store.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ClusterMode=${PSA_STOREAPI_CLUSTERMODE}
+      - K8s__SecretFile=${PSA_STOREAPI_K8S_SECRETFILE}
+      - Azure__EventBusConnection=${PSA_STOREAPI_AZURE_EVENTBUSCONNECTION}
+      - Azure__EventBusEntityPath=${PSA_STOREAPI_AZURE_EVENTBUSENTITYPATH}
+      - Azure__SubscriptionClientName=${PSA_STOREAPI_AZURE_SUBSCRIPTIONCLIENTNAME}
+      - Azure__KeyVaultName=${PSA_STOREAPI_AZURE_KEYVAULTNAME}
+      - Azure__AzureADApplicationId=${PSA_STOREAPI_AZURE_AZUREADAPPLICATIONID}
+      - Azure__AzureADPassword=${PSA_STOREAPI_AZURE_AZUREADPASSWORD}
+      - Cluster__CertificateSecretName=${PSA_STOREAPI_CLUSTER_CERTIFICATESECRETNAME}
+      - Cluster__CertificateSecretPassword=${PSA_STOREAPI_CLUSTER_CERTIFICATESECRETPASSWORD}
+      - KestrelNoClusterHttpsCertFile__Path=${PSA_STOREAPI_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
+      - KestrelNoClusterHttpsCertFile__Password=${PSA_STOREAPI_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
+      - MongoDbConfig__ConnectionString=${PSA_STOREAPI_MONGODBCONFIG_CONNECTIONSTRING}
+      - MongoDbConfig__Datebase=${PSA_STOREAPI_MONGODBCONFIG_DATEBASE}
+      - MongoDbConfig__User=${PSA_STOREAPI_MONGODBCONFIG_USER}
+      - MongoDbConfig__Password=${PSA_STOREAPI_MONGODBCONFIG_PASSWORD}
+      - RabbitMqBus__Connection=${PSA_STOREAPI_RABBITMQBUS_CONNECTION}
+      - RabbitMqBus__QueueName=${PSA_STOREAPI_RABBITMQBUS_QUEUENAME}
+      - RabbitMqBus__RetryCount=${PSA_STOREAPI_RABBITMQBUS_RETRYCOUNT}
+      - RabbitMqBus__User=${PSA_STOREAPI_RABBITMQBUS_USER}
+      - RabbitMqBus__Password=${PSA_STOREAPI_RABBITMQBUS_PASSWORD}
+      - AuthenticationBearer__Authority=${PSA_STOREAPI_AUTHENTICATIONBEARER_AUTHORITY}
+      - AuthenticationBearer__ApiName=${PSA_STOREAPI_AUTHENTICATIONBEARER_APINAME}
+      - AuthenticationBearer__ApiSecret=${PSA_STOREAPI_AUTHENTICATIONBEARER_APISECRET}
+    extra_hosts:
+      - "dev.docker.local:${PSA_GLOBAL_DEV_DOCKER_LOCAL}"
+    ports:
+      - "44383:5001"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
+
+  customer.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ClusterMode=${PSA_CUSTOMERAPI_CLUSTERMODE}
+      - K8s__SecretFile=${PSA_CUSTOMERAPI_K8S_SECRETFILE}
+      - Azure__EventBusConnection=${PSA_CUSTOMERAPI_AZURE_EVENTBUSCONNECTION}
+      - Azure__EventBusEntityPath=${PSA_CUSTOMERAPI_AZURE_EVENTBUSENTITYPATH}
+      - Azure__SubscriptionClientName=${PSA_CUSTOMERAPI_AZURE_SUBSCRIPTIONCLIENTNAME}
+      - Azure__KeyVaultName=${PSA_CUSTOMERAPI_AZURE_KEYVAULTNAME}
+      - Azure__AzureADApplicationId=${PSA_CUSTOMERAPI_AZURE_AZUREADAPPLICATIONID}
+      - Azure__AzureADPassword=${PSA_CUSTOMERAPI_AZURE_AZUREADPASSWORD}
+      - Cluster__CertificateSecretName=${PSA_CUSTOMERAPI_CLUSTER_CERTIFICATESECRETNAME}
+      - Cluster__CertificateSecretPassword=${PSA_CUSTOMERAPI_CLUSTER_CERTIFICATESECRETPASSWORD}
+      - KestrelNoClusterHttpsCertFile__Path=${PSA_CUSTOMERAPI_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
+      - KestrelNoClusterHttpsCertFile__Password=${PSA_CUSTOMERAPI_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
+      - MongoDbConfig__ConnectionString=${PSA_CUSTOMERAPI_MONGODBCONFIG_CONNECTIONSTRING}
+      - MongoDbConfig__Datebase=${PSA_CUSTOMERAPI_MONGODBCONFIG_DATEBASE}
+      - MongoDbConfig__User=${PSA_CUSTOMERAPI_MONGODBCONFIG_USER}
+      - MongoDbConfig__Password=${PSA_CUSTOMERAPI_MONGODBCONFIG_PASSWORD}
+      - RabbitMqBus__Connection=${PSA_CUSTOMERAPI_RABBITMQBUS_CONNECTION}
+      - RabbitMqBus__QueueName=${PSA_CUSTOMERAPI_RABBITMQBUS_QUEUENAME}
+      - RabbitMqBus__RetryCount=${PSA_CUSTOMERAPI_RABBITMQBUS_RETRYCOUNT}
+      - RabbitMqBus__User=${PSA_CUSTOMERAPI_RABBITMQBUS_USER}
+      - RabbitMqBus__Password=${PSA_CUSTOMERAPI_RABBITMQBUS_PASSWORD}
+      - AuthenticationBearer__Authority=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_AUTHORITY}
+      - AuthenticationBearer__ApiName=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APINAME}
+      - AuthenticationBearer__ApiSecret=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APISECRET}
+    extra_hosts:
+      - "dev.docker.local:${PSA_GLOBAL_DEV_DOCKER_LOCAL}"
+    ports:
+      - "44384:5001"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
+
+  identity.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ClusterMode=${PSA_IDENTITYAPI_CLUSTERMODE}
+      - K8s__SecretFile=${PSA_IDENTITYAPI_K8S_SECRETFILE}
+      - Azure__EventBusConnection=${PSA_IDENTITYAPI_AZURE_EVENTBUSCONNECTION}
+      - Azure__EventBusEntityPath=${PSA_IDENTITYAPI_AZURE_EVENTBUSENTITYPATH}
+      - Azure__SubscriptionClientName=${PSA_IDENTITYAPI_AZURE_SUBSCRIPTIONCLIENTNAME}
+      - Azure__KeyVaultName=${PSA_IDENTITYAPI_AZURE_KEYVAULTNAME}
+      - Azure__AzureADApplicationId=${PSA_IDENTITYAPI_AZURE_AZUREADAPPLICATIONID}
+      - Azure__AzureADPassword=${PSA_IDENTITYAPI_AZURE_AZUREADPASSWORD}
+      - Cluster__CertificateSecretName=${PSA_IDENTITYAPI_CLUSTER_CERTIFICATESECRETNAME}
+      - Cluster__CertificateSecretPassword=${PSA_IDENTITYAPI_CLUSTER_CERTIFICATESECRETPASSWORD}
+      - KestrelNoClusterHttpsCertFile__Path=${PSA_IDENTITYAPI_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
+      - KestrelNoClusterHttpsCertFile__Password=${PSA_IDENTITYAPI_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
+      #- MongoDbConfig__ConnectionString=${PSA_IDENTITYAPI_MONGODBCONFIG_CONNECTIONSTRING}
+      #- MongoDbConfig__Datebase=${PSA_IDENTITYAPI_MONGODBCONFIG_DATEBASE}
+      #- MongoDbConfig__User=${PSA_IDENTITYAPI_MONGODBCONFIG_USER}
+      #- MongoDbConfig__Password=${PSA_IDENTITYAPI_MONGODBCONFIG_PASSWORD}
+    extra_hosts:
+      - "dev.docker.local:${PSA_GLOBAL_DEV_DOCKER_LOCAL}"
+    ports:
+      - "44385:5001"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/

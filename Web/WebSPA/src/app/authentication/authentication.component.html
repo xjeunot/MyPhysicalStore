@@ -1,0 +1,43 @@
+<!-- Connected Mode -->
+<div *ngIf="isConnected">
+    <h2>You submitted the following:</h2>
+    <!--<div class="row">
+      user : {{ cashDeskDetail.user }}
+    </div>
+    <div class="row">
+      Current State : {{ cashDeskDetail.currentState }}
+    </div>
+    <div class="row">
+      Cashier user : {{cashDeskDetail.password }}
+    </div>
+    <div class="row">
+      Session user : {{ cashDeskDetail.sessionuser }}
+    </div>
+    <br>-->
+    <button class="btn btn-default" (click)="logOff()">LogOff</button>
+</div>
+  
+<!-- Anonymous Mode -->
+<div *ngIf="!isConnected">
+    <h2>Login Page</h2>
+    <div>{{ errorMessage }}</div>
+    <form (ngSubmit)="logOn()" #loginForm="ngForm">
+        <!-- user -->
+        <div class="form-group">
+            <label for="user">user</label>
+            <input type="text" class="form-control" id="user" required [(ngModel)]="loginUser" name="user" #user="ngModel">
+            <div [hidden]="user.valid || user.pristine" class="alert alert-danger">
+              user is required
+            </div>
+        </div>
+        <!-- password -->
+        <div class="form-group">
+          <label for="password">Cashier user</label>
+          <input type="text" class="form-control" id="password" required [(ngModel)]="loginPassword" name="password" #password="ngModel">
+          <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            password is required
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Submit</button>
+      </form>
+</div>
