@@ -1,19 +1,19 @@
 version: '3.4'
 
 services:
-  store.api:
+  store-api:
     image: psa_storeapi:latest
     build:
       context: .
       dockerfile: Services/Store/Store.API/Dockerfile
 
-  customer.api:
+  customer-api:
     image: psa_customerapi:latest
     build:
       context: .
       dockerfile: Services/Customer/Customer.API/Dockerfile
 
-  identity.api:
+  identity-api:
     image: psa_identityapi:latest
     build:
       context: .

@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  store.api:
+  store-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ClusterMode=${PSA_STOREAPI_CLUSTERMODE}
@@ -28,14 +28,12 @@ services:
       - AuthenticationBearer__Authority=${PSA_STOREAPI_AUTHENTICATIONBEARER_AUTHORITY}
       - AuthenticationBearer__ApiName=${PSA_STOREAPI_AUTHENTICATIONBEARER_APINAME}
       - AuthenticationBearer__ApiSecret=${PSA_STOREAPI_AUTHENTICATIONBEARER_APISECRET}
-    extra_hosts:
-      - "dev.docker.local:${PSA_GLOBAL_DEV_DOCKER_LOCAL}"
     ports:
       - "44383:5001"
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
-  customer.api:
+  customer-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ClusterMode=${PSA_CUSTOMERAPI_CLUSTERMODE}
@@ -62,14 +60,12 @@ services:
       - AuthenticationBearer__Authority=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_AUTHORITY}
       - AuthenticationBearer__ApiName=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APINAME}
       - AuthenticationBearer__ApiSecret=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APISECRET}
-    extra_hosts:
-      - "dev.docker.local:${PSA_GLOBAL_DEV_DOCKER_LOCAL}"
     ports:
       - "44384:5001"
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
-  identity.api:
+  identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ClusterMode=${PSA_IDENTITYAPI_CLUSTERMODE}
@@ -88,8 +84,6 @@ services:
       #- MongoDbConfig__Datebase=${PSA_IDENTITYAPI_MONGODBCONFIG_DATEBASE}
       #- MongoDbConfig__User=${PSA_IDENTITYAPI_MONGODBCONFIG_USER}
       #- MongoDbConfig__Password=${PSA_IDENTITYAPI_MONGODBCONFIG_PASSWORD}
-    extra_hosts:
-      - "dev.docker.local:${PSA_GLOBAL_DEV_DOCKER_LOCAL}"
     ports:
       - "44385:5001"
     volumes:
