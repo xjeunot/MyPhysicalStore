@@ -28,8 +28,10 @@ services:
       - AuthenticationBearer__Authority=${PSA_STOREAPI_AUTHENTICATIONBEARER_AUTHORITY}
       - AuthenticationBearer__ApiName=${PSA_STOREAPI_AUTHENTICATIONBEARER_APINAME}
       - AuthenticationBearer__ApiSecret=${PSA_STOREAPI_AUTHENTICATIONBEARER_APISECRET}
-    ports:
-      - "44383:5001"
+    expose:
+      - "5001"
+    networks:
+      - apinetwork
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
@@ -60,8 +62,10 @@ services:
       - AuthenticationBearer__Authority=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_AUTHORITY}
       - AuthenticationBearer__ApiName=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APINAME}
       - AuthenticationBearer__ApiSecret=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APISECRET}
-    ports:
-      - "44384:5001"
+    expose:
+      - "5001"
+    networks:
+      - apinetwork
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
@@ -84,7 +88,62 @@ services:
       #- MongoDbConfig__Datebase=${PSA_IDENTITYAPI_MONGODBCONFIG_DATEBASE}
       #- MongoDbConfig__User=${PSA_IDENTITYAPI_MONGODBCONFIG_USER}
       #- MongoDbConfig__Password=${PSA_IDENTITYAPI_MONGODBCONFIG_PASSWORD}
-    ports:
-      - "44385:5001"
+    expose:
+      - "5001"
+    networks:
+      - apinetwork
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
+
+  ocelot-api-gw:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ClusterMode=${PSA_OCELOTAPIGW_CLUSTERMODE}
+      - K8s__SecretFile=${PSA_OCELOTAPIGW_K8S_SECRETFILE}
+      - Azure__EventBusConnection=${PSA_OCELOTAPIGW_AZURE_EVENTBUSCONNECTION}
+      - Azure__EventBusEntityPath=${PSA_OCELOTAPIGW_AZURE_EVENTBUSENTITYPATH}
+      - Azure__SubscriptionClientName=${PSA_OCELOTAPIGW_AZURE_SUBSCRIPTIONCLIENTNAME}
+      - Azure__KeyVaultName=${PSA_OCELOTAPIGW_AZURE_KEYVAULTNAME}
+      - Azure__AzureADApplicationId=${PSA_OCELOTAPIGW_AZURE_AZUREADAPPLICATIONID}
+      - Azure__AzureADPassword=${PSA_OCELOTAPIGW_AZURE_AZUREADPASSWORD}
+      - Cluster__CertificateSecretName=${PSA_OCELOTAPIGW_CLUSTER_CERTIFICATESECRETNAME}
+      - Cluster__CertificateSecretPassword=${PSA_OCELOTAPIGW_CLUSTER_CERTIFICATESECRETPASSWORD}
+      - KestrelNoClusterHttpsCertFile__Path=${PSA_OCELOTAPIGW_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
+      - KestrelNoClusterHttpsCertFile__Password=${PSA_OCELOTAPIGW_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
+    ports:
+      - "44301:5001"
+    networks:
+      - apinetwork
+      - ocelotapigwnetwork
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
+
+  aspmvc-web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ClusterMode=${PSA_ASPMVCWEB_CLUSTERMODE}
+      - K8s__SecretFile=${PSA_ASPMVCWEB_K8S_SECRETFILE}
+      - Azure__EventBusConnection=${PSA_ASPMVCWEB_AZURE_EVENTBUSCONNECTION}
+      - Azure__EventBusEntityPath=${PSA_ASPMVCWEB_AZURE_EVENTBUSENTITYPATH}
+      - Azure__SubscriptionClientName=${PSA_ASPMVCWEB_AZURE_SUBSCRIPTIONCLIENTNAME}
+      - Azure__KeyVaultName=${PSA_ASPMVCWEB_AZURE_KEYVAULTNAME}
+      - Azure__AzureADApplicationId=${PSA_ASPMVCWEB_AZURE_AZUREADAPPLICATIONID}
+      - Azure__AzureADPassword=${PSA_ASPMVCWEB_AZURE_AZUREADPASSWORD}
+      - Cluster__CertificateSecretName=${PSA_ASPMVCWEB_CLUSTER_CERTIFICATESECRETNAME}
+      - Cluster__CertificateSecretPassword=${PSA_ASPMVCWEB_CLUSTER_CERTIFICATESECRETPASSWORD}
+      - KestrelNoClusterHttpsCertFile__Path=${PSA_ASPMVCWEB_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
+      - KestrelNoClusterHttpsCertFile__Password=${PSA_ASPMVCWEB_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
+    ports:
+      - "44302:5001"
+    networks:
+      - ocelotapigwnetwork
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
+
+networks:
+  apinetwork:
+    driver: bridge
+    internal: true
+  ocelotapigwnetwork:
+    driver: bridge
+    internal: false

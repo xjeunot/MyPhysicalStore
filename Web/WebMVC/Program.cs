@@ -5,7 +5,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace XJeunot.PhysicalStoreApps.ApiGateway.OcelotApiGw
+namespace XJeunot.PhysicalStoreApps.Web.WebMVC
 {
     public class Program
     {

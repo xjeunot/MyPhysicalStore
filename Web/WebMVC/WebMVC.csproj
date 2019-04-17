@@ -3,17 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <RootNamespace>XJeunot.PhysicalStoreApps.ApiGateway.OcelotApiGw</RootNamespace>
+    <RootNamespace>XJeunot.PhysicalStoreApps.Web.WebMVC</RootNamespace>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <UserSecretsId>ad691243-b46a-454c-98cc-0f01891bf218</UserSecretsId>
+    <UserSecretsId>04167151-d3db-4dd1-b1a0-8780c6057940</UserSecretsId>
   </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
-    <PackageReference Include="Ocelot" Version="13.0.0" />
   </ItemGroup>
 
 </Project>

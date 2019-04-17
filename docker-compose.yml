@@ -18,3 +18,15 @@ services:
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
+
+  ocelot-api-gw:
+    image: psa_ocelotapigw:latest
+    build:
+      context: .
+      dockerfile: ApiGateway/OcelotApiGw/Dockerfile
+
+  aspmvc-web:
+    image: psa_aspmvcweb:latest
+    build:
+      context: .
+      dockerfile: Web/WebMVC/Dockerfile
