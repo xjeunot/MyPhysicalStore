@@ -74,10 +74,17 @@ namespace XJeunot.PhysicalStoreApps.Services.Customer.API.Database.Client
                 }
                 else
                 {
-                    String strConnectionString = _settings.Value.ConnectionString;
-                    strConnectionString = strConnectionString.Replace("<<User>>", _settings.Value.User);
-                    strConnectionString = strConnectionString.Replace("<<Password>>", _settings.Value.Password);
-                    _client = new MongoClient(strConnectionString);
+                    MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(_settings.Value.ConnectionString));
+                    if ((_settings.Value.User != "") &&
+                        (_settings.Value.Password != ""))
+                    {
+                        MongoCredential clsMongoCredential = MongoCredential.CreateCredential(
+                            "admin",
+                            _settings.Value.User,
+                            _settings.Value.Password);
+                        settings.Credential = clsMongoCredential;
+                    }
+                    _client = new MongoClient(settings);
                 }
                 return true;
             }

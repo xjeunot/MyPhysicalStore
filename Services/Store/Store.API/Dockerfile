@@ -9,9 +9,10 @@ COPY Security/cert_rootcagfi.crt cert_rootcagfi.crt
 RUN update-ca-certificates
 #Download Package Enterprise CA Security : End Section
 WORKDIR /src
-COPY Services/Store/Store.API/Store.API.csproj Services/Store/Store.API/
-COPY BuildingBlocks/EventBusRabbitMQ/EventBusRabbitMQ.csproj BuildingBlocks/EventBusRabbitMQ/
-COPY BuildingBlocks/EventBus/EventBus.csproj BuildingBlocks/EventBus/
+COPY ["Services/Store/Store.API/Store.API.csproj", "Services/Store/Store.API/"]
+COPY ["BuildingBlocks/EventBusAzure/EventBusAzure.csproj", "BuildingBlocks/EventBusAzure/"]
+COPY ["BuildingBlocks/EventBusRabbitMQ/EventBusRabbitMQ.csproj", "BuildingBlocks/EventBusRabbitMQ/"]
+COPY ["BuildingBlocks/EventBus/EventBus.csproj", "BuildingBlocks/EventBus/"]
 RUN dotnet restore Services/Store/Store.API/Store.API.csproj
 COPY . .
 WORKDIR /src/Services/Store/Store.API

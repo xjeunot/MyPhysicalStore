@@ -9,7 +9,7 @@ import { CashDesk } from '../models/cashdesk';
  })
 export class CashDeskService {
 
-  apiConfig = environment.api.cashDesk;
+  apiConfig = environment.api.storeApi.cashDesk;
   
   constructor(private http: HttpClient) {
   }

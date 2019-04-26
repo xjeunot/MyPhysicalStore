@@ -31,6 +31,17 @@ namespace XJeunot.PhysicalStoreApps.ApiGateway.OcelotApiGw
 
             /* Add Service Ocelot. */
             services.AddOcelot(Configuration);
+
+            /* Add Cors Policy Development*/
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicyDevelopment",
+                    builder => builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowCredentials());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +50,9 @@ namespace XJeunot.PhysicalStoreApps.ApiGateway.OcelotApiGw
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                /* Activate Cors Policy Development*/
+                app.UseCors("CorsPolicyDevelopment");
             }
             else
             {
@@ -49,7 +63,7 @@ namespace XJeunot.PhysicalStoreApps.ApiGateway.OcelotApiGw
             app.UseHttpsRedirection();
 
             /* Use Service Ocelot. */
-            app.UseOcelot();
+            app.UseOcelot().Wait();
         }
     }
 }

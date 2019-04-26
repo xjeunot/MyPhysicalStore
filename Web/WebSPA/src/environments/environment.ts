@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environmentServer = {
-  serverStoreApi: "dev.docker.local:44383",
-  serverCustomerApi: "dev.docker.local:44384",
-  serverIdentity : "dev.docker.local:44385"
+  serverStoreApi: "https://dev.docker.local:44301/api/store",
+  serverCustomerApi: "https://dev.docker.local:44301/api/customer",
+  serverIdentity : "https://dev.docker.local:44301/api/identity"
 }
 
 export const environment = {
@@ -13,31 +13,35 @@ export const environment = {
   production: false,
 
   api : {
-    cashDesk: {
-      getAll :  "https://" + environmentServer.serverStoreApi + "/api/v1/CashDesk",
-      getId :   "https://" + environmentServer.serverStoreApi + "/api/v1/CashDesk/{{ID}}",
-      post :    "https://" + environmentServer.serverStoreApi + "/api/v1/CashDesk",
-      put :     "https://" + environmentServer.serverStoreApi + "/api/v1/CashDesk",
-      remove :  "https://" + environmentServer.serverStoreApi + "/api/v1/CashDesk/{{ID}}"
+    storeApi : {
+      cashDesk: {
+        getAll :  environmentServer.serverStoreApi + "/v1/CashDesk",
+        getId :   environmentServer.serverStoreApi + "/v1/CashDesk/{{ID}}",
+        post :    environmentServer.serverStoreApi + "/v1/CashDesk",
+        put :     environmentServer.serverStoreApi + "/v1/CashDesk",
+        remove :  environmentServer.serverStoreApi + "/v1/CashDesk/{{ID}}"
+      },
+      checkOut: {
+        getAll :  environmentServer.serverStoreApi + "/v1/CheckOut",
+        getId :   environmentServer.serverStoreApi + "/v1/CheckOut/{{ID}}",
+        post :    environmentServer.serverStoreApi + "/v1/CheckOut",
+        put :     environmentServer.serverStoreApi + "/v1/CheckOut",
+        remove :  environmentServer.serverStoreApi + "/v1/CheckOut/{{ID}}"
+      }
     },
-    checkOut: {
-      getAll :  "https://" + environmentServer.serverStoreApi + "/api/v1/CheckOut",
-      getId :   "https://" + environmentServer.serverStoreApi + "/api/v1/CheckOut/{{ID}}",
-      post :    "https://" + environmentServer.serverStoreApi + "/api/v1/CheckOut",
-      put :     "https://" + environmentServer.serverStoreApi + "/api/v1/CheckOut",
-      remove :  "https://" + environmentServer.serverStoreApi + "/api/v1/CheckOut/{{ID}}"
-    },
-    customer: {
-      getAll :  "https://" + environmentServer.serverCustomerApi + "/api/v1/Customer",
-      getId :   "https://" + environmentServer.serverCustomerApi + "/api/v1/Customer/{{ID}}",
-      post :    "https://" + environmentServer.serverCustomerApi + "/api/v1/Customer",
-      put :     "https://" + environmentServer.serverCustomerApi + "/api/v1/Customer",
-      remove :  "https://" + environmentServer.serverCustomerApi + "/api/v1/Customer/{{ID}}"
+    customerApi : {
+      customer: {
+        getAll :  environmentServer.serverCustomerApi + "/v1/Customer",
+        getId :   environmentServer.serverCustomerApi + "/v1/Customer/{{ID}}",
+        post :    environmentServer.serverCustomerApi + "/v1/Customer",
+        put :     environmentServer.serverCustomerApi + "/v1/Customer",
+        remove :  environmentServer.serverCustomerApi + "/v1/Customer/{{ID}}"
+      }
     }
   },
   identity : {
-    token : 'https://' + environmentServer.serverIdentity + '/connect/token',
-    revoke : 'https://' + environmentServer.serverIdentity + '/connect/revoke'
+    token : environmentServer.serverIdentity + '/connect/token',
+    revoke : environmentServer.serverIdentity + '/connect/revoke'
   }
 };
 

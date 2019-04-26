@@ -10,6 +10,7 @@ RUN update-ca-certificates
 #Download Package Enterprise CA Security : End Section
 WORKDIR /src
 COPY ["Services/Customer/Customer.API/Customer.API.csproj", "Services/Customer/Customer.API/"]
+COPY ["BuildingBlocks/EventBusAzure/EventBusAzure.csproj", "BuildingBlocks/EventBusAzure/"]
 COPY ["BuildingBlocks/EventBusRabbitMQ/EventBusRabbitMQ.csproj", "BuildingBlocks/EventBusRabbitMQ/"]
 COPY ["BuildingBlocks/EventBus/EventBus.csproj", "BuildingBlocks/EventBus/"]
 RUN dotnet restore "Services/Customer/Customer.API/Customer.API.csproj"

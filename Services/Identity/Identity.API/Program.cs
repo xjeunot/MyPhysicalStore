@@ -9,8 +9,8 @@ namespace XJeunot.PhysicalStoreApps.Services.Identity.API
 {
     public class Program
     {
-        private static readonly string CLUSTER_AZURE = "Azure";
-        private static readonly string CLUSTER_KUBERNETE = "K8s";
+        public static readonly string CLUSTER_AZURE = "Azure";
+        public static readonly string CLUSTER_KUBERNETE_ALONE = "KuberneteAlone";
 
         public static void Main(string[] args)
         {
@@ -61,9 +61,9 @@ namespace XJeunot.PhysicalStoreApps.Services.Identity.API
                     }
 
                     /*
-                     * Kubernete Cluster.
+                     * Kubernete Alone Cluster.
                      */
-                    if (builtConfig["ClusterMode"] == Program.CLUSTER_KUBERNETE)
+                    if (builtConfig["ClusterMode"] == Program.CLUSTER_KUBERNETE_ALONE)
                     {
                         configurationBuilder.AddJsonFile(builtConfig["K8s:SecretFile"], optional: false);
                     }
@@ -82,7 +82,7 @@ namespace XJeunot.PhysicalStoreApps.Services.Identity.API
         private static X509Certificate2 BuildX509Certificate2(IConfiguration configuration)
         {
             if ((configuration["ClusterMode"] == Program.CLUSTER_AZURE) ||
-                (configuration["ClusterMode"] == Program.CLUSTER_KUBERNETE))
+                (configuration["ClusterMode"] == Program.CLUSTER_KUBERNETE_ALONE))
             {
                 string strCertificateSecretName = configuration["Cluster:CertificateSecretName"];
                 string strCertificateSecretPassword = configuration["Cluster:CertificateSecretPassword"];

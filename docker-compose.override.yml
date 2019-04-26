@@ -143,7 +143,7 @@ services:
 networks:
   apinetwork:
     driver: bridge
-    internal: true
+    internal: false
   ocelotapigwnetwork:
     driver: bridge
     internal: false

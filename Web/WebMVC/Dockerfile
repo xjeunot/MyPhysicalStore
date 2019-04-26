@@ -1,7 +1,6 @@
 FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 5001
 
 FROM microsoft/dotnet:2.2-sdk AS build
 #Download Package Enterprise CA Security : Start Section
