@@ -263,3 +263,4 @@ __pycache__/
 # Personnal
 /Security
 *.env
+/Web/WebSPA/dist/WebSPA

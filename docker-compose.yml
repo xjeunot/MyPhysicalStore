@@ -30,3 +30,9 @@ services:
     build:
       context: .
       dockerfile: Web/WebMVC/Dockerfile
+
+  spa-web:
+    image: psa_spaweb:latest
+    build:
+      context: .
+      dockerfile: Web/WebSPA/Dockerfile
