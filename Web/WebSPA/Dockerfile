@@ -7,10 +7,10 @@ RUN update-ca-certificates
 WORKDIR /app
 COPY . .
 WORKDIR "/app/Web/WebSPA"
-RUN npm i
 RUN npm install -g @angular/cli
+RUN npm ci
 RUN ng build --prod
 
 FROM nginx:alpine
 EXPOSE 80
-COPY --from=builder /app/dist/WebSPA/* /usr/share/nginx/html/
+COPY --from=builder /app/Web/WebSPA/dist/WebSPA/ /usr/share/nginx/html/
