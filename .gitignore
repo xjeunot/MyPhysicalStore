@@ -264,3 +264,4 @@ __pycache__/
 /Security
 *.env
 /Web/WebSPA/dist/WebSPA
+/Deploy/K8s/Configs-Secrets
