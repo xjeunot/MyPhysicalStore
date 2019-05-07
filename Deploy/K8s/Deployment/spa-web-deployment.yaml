@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spa-web-deploy
+spec:
+  paused: true
+  template:
+    metadata:
+      labels:
+        app: my-physical-store
+        env: test
+        component: spa-web-deploy
+    spec:
+      containers:
+      - name: spa-web-deploy
+        image: xjeunot59/psa_spaweb
+        imagePullPolicy: Always
+        #env:
+        ports:
+        - containerPort: 80
+      volumes:
+      - name: secrets
+        secret:
+          secretName: secret-spa-web

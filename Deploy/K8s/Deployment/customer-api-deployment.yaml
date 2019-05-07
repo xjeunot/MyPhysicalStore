@@ -1,0 +1,149 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: customer-api-deploy
+spec:
+  paused: true
+  template:
+    metadata:
+      labels:
+        app: my-physical-store
+        env: test
+        component: customer-api-deploy
+    spec:
+      containers:
+      - name: customer-api-deploy
+        image: xjeunot59/psa_customerapi
+        imagePullPolicy: Always
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__ASPNETCORE_ENVIRONMENT
+        - name: ClusterMode
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__ClusterMode
+        - name: K8s__SecretFile
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__K8s__SecretFile
+        - name: Azure__EventBusConnection
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__Azure__EventBusConnection
+        - name: Azure__EventBusEntityPath
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__Azure__EventBusEntityPath
+        - name: Azure__SubscriptionClientName
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__Azure__SubscriptionClientName
+        - name: Azure__KeyVaultName
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__Azure__KeyVaultName
+        - name: Azure__AzureADApplicationId
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__Azure__AzureADApplicationId
+        - name: Azure__AzureADPassword
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__Azure__AzureADPassword
+        - name: Cluster__CertificateSecretName
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__Cluster__CertificateSecretName
+        - name: Cluster__CertificateSecretPassword
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__Cluster__CertificateSecretPassword
+        - name: KestrelNoClusterHttpsCertFile__Path
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__KestrelNoClusterHttpsCertFile__Path
+        - name: KestrelNoClusterHttpsCertFile__Password
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__KestrelNoClusterHttpsCertFile__Password
+        - name: MongoDbConfig__ConnectionString
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__MongoDbConfig__ConnectionString
+        - name: MongoDbConfig__Datebase
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__MongoDbConfig__Datebase
+        - name: MongoDbConfig__User
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__MongoDbConfig__User
+        - name: MongoDbConfig__Password
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__MongoDbConfig__Password
+        - name: RabbitMqBus__Connection
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__RabbitMqBus__Connection
+        - name: RabbitMqBus__QueueName
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__RabbitMqBus__QueueName
+        - name: RabbitMqBus__RetryCount
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__RabbitMqBus__RetryCount
+        - name: RabbitMqBus__User
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__RabbitMqBus__User
+        - name: RabbitMqBus__Password
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__RabbitMqBus__Password
+        - name: AuthenticationBearer__Authority
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__AuthenticationBearer__Authority
+        - name: AuthenticationBearer__ApiName
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__AuthenticationBearer__ApiName
+        - name: AuthenticationBearer__ApiSecret
+          valueFrom:
+           configMapKeyRef:
+             name: psa-test-config-files
+             key: CustomerApi__AuthenticationBearer__ApiSecret
+        ports:
+        - containerPort: 80
+      volumes:
+      - name: secrets
+        secret:
+          secretName: secret-customer-api
