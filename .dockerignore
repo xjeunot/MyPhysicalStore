@@ -8,8 +8,3 @@ docker-compose.yml
 docker-compose.*.yml
 */bin
 */obj
-**/node_modules/
-Web/WebSPA/dist/
-Web/WebSPA/e2e/
-Web/WebSPA/obj/
-Web/WebSPA/node_modules/

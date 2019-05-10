@@ -34,6 +34,9 @@ docker push %REGISTRY%/psa_ocelotapigw:%VERSION%
 docker push %REGISTRY%/psa_aspmvcweb:%VERSION%
 docker push %REGISTRY%/psa_spaweb:%VERSION%
 
+rem Open Work Directory.
+cd %REPO_SRC%\K8s\Deploy
+
 rem Cleaning up old deployment.
 ECHO "#################### Cleaning up old deployment ####################"
 kubectl delete deployments --all
