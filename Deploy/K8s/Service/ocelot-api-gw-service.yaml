@@ -4,12 +4,12 @@ metadata:
   name: ocelot-api-gw
   labels:
     app: my-physical-store
-    env: test
+    env: dev
     component: ocelot-api-gw
 spec:
   ports:
   - port: 5001
   selector:
     app: my-physical-store
-    env: test
+    env: dev
     component: ocelot-api-gw-deploy

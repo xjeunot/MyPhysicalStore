@@ -8,7 +8,7 @@ spec:
     metadata:
       labels:
         app: my-physical-store
-        env: test
+        env: dev
         component: ocelot-api-gw-deploy
     spec:
       containers:
@@ -19,70 +19,74 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__ASPNETCORE_ENVIRONMENT
         - name: ClusterMode
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__ClusterMode
         - name: K8s__SecretFile
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__K8s__SecretFile
         - name: Azure__EventBusConnection
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__Azure__EventBusConnection
         - name: Azure__EventBusEntityPath
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__Azure__EventBusEntityPath
         - name: Azure__SubscriptionClientName
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__Azure__SubscriptionClientName
         - name: Azure__KeyVaultName
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__Azure__KeyVaultName
         - name: Azure__AzureADApplicationId
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__Azure__AzureADApplicationId
         - name: Azure__AzureADPassword
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__Azure__AzureADPassword
         - name: Cluster__CertificateSecretName
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__Cluster__CertificateSecretName
         - name: Cluster__CertificateSecretPassword
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__Cluster__CertificateSecretPassword
         - name: KestrelNoClusterHttpsCertFile__Path
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__KestrelNoClusterHttpsCertFile__Path
         - name: KestrelNoClusterHttpsCertFile__Password
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: OcelotApiGw__KestrelNoClusterHttpsCertFile__Password
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: secrets
+          mountPath: /app/secrets
+          readOnly: true
       volumes:
       - name: secrets
         secret:

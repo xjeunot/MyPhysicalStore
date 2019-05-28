@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: psa-dev-ingress
+  annotations:
+    nginx.org/ssl-services: "ocelot-api-gw"
+#    nginx.org/rewrites: "serviceName=spa-web rewrite=/"
+spec:
+  tls:
+  - hosts:
+    - psa-dev.local
+    secretName: psa-dev-local-secret
+  rules:
+  - host: psa-dev.local
+    http:
+      paths:
+      - path: /WebSPA
+        backend:
+          serviceName: spa-web
+          servicePort: 80
+      - path: /api
+        backend:
+          serviceName: ocelot-api-gw
+          servicePort: 5001

@@ -4,12 +4,12 @@ metadata:
   name: store-api
   labels:
     app: my-physical-store
-    env: test
+    env: dev
     component: store-api
 spec:
   ports:
   - port: 5001
   selector:
     app: my-physical-store
-    env: test
+    env: dev
     component: store-api-deploy

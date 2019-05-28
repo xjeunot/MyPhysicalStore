@@ -1,3 +1,4 @@
 FROM nginx:alpine
 EXPOSE 80
-COPY dist/WebSPA/ /usr/share/nginx/html/
+COPY Web/WebSPA/dist/WebSPA/ /usr/share/nginx/html/WebSPA/
+WORKDIR /app

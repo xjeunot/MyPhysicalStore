@@ -8,7 +8,7 @@ spec:
     metadata:
       labels:
         app: my-physical-store
-        env: test
+        env: dev
         component: identity-api-deploy
     spec:
       containers:
@@ -19,90 +19,94 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__ASPNETCORE_ENVIRONMENT
         - name: ClusterMode
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__ClusterMode
         - name: K8s__SecretFile
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__K8s__SecretFile
         - name: Azure__EventBusConnection
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__Azure__EventBusConnection
         - name: Azure__EventBusEntityPath
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__Azure__EventBusEntityPath
         - name: Azure__SubscriptionClientName
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__Azure__SubscriptionClientName
         - name: Azure__KeyVaultName
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__Azure__KeyVaultName
         - name: Azure__AzureADApplicationId
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__Azure__AzureADApplicationId
         - name: Azure__AzureADPassword
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__Azure__AzureADPassword
         - name: Cluster__CertificateSecretName
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__Cluster__CertificateSecretName
         - name: Cluster__CertificateSecretPassword
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__Cluster__CertificateSecretPassword
         - name: KestrelNoClusterHttpsCertFile__Path
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__KestrelNoClusterHttpsCertFile__Path
         - name: KestrelNoClusterHttpsCertFile__Password
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__KestrelNoClusterHttpsCertFile__Password
         - name: MongoDbConfig__ConnectionString
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__MongoDbConfig__ConnectionString
         - name: MongoDbConfig__Datebase
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__MongoDbConfig__Datebase
         - name: MongoDbConfig__User
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__MongoDbConfig__User
         - name: MongoDbConfig__Password
           valueFrom:
            configMapKeyRef:
-             name: psa-test-config-files
+             name: psa-dev-config-files
              key: IdentityApi__MongoDbConfig__Password
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: secrets
+          mountPath: /app/secrets
+          readOnly: true
       volumes:
       - name: secrets
         secret:

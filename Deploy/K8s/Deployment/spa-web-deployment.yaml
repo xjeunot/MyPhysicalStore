@@ -8,17 +8,21 @@ spec:
     metadata:
       labels:
         app: my-physical-store
-        env: test
+        env: dev
         component: spa-web-deploy
     spec:
       containers:
       - name: spa-web-deploy
         image: xjeunot59/psa_spaweb
         imagePullPolicy: Always
-        #env:
+#        env:
         ports:
         - containerPort: 80
-      volumes:
-      - name: secrets
-        secret:
-          secretName: secret-spa-web
+#        volumeMounts:
+#        - name: secrets
+#          mountPath: /app/secrets
+#          readOnly: true
+#      volumes:
+#      - name: secrets
+#        secret:
+#          secretName: secret-spa-web
