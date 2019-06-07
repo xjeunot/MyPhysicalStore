@@ -25,6 +25,12 @@ services:
       context: .
       dockerfile: ApiGateway/OcelotApiGw/Dockerfile
 
+  ocelot-api-gw-spa:
+    image: psa_ocelotapigwspa:latest
+    build:
+      context: .
+      dockerfile: ApiGateway/OcelotApiGwSpa/Dockerfile
+
   aspmvc-web:
     image: psa_aspmvcweb:latest
     build:

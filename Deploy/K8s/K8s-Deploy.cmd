@@ -51,6 +51,7 @@ docker tag psa_storeapi:%VERSION% %REGISTRY%/psa_storeapi:%VERSION%
 docker tag psa_customerapi:%VERSION% %REGISTRY%/psa_customerapi:%VERSION%
 docker tag psa_identityapi:%VERSION% %REGISTRY%/psa_identityapi:%VERSION%
 docker tag psa_ocelotapigw:%VERSION% %REGISTRY%/psa_ocelotapigw:%VERSION%
+docker tag psa_ocelotapigwspa:%VERSION% %REGISTRY%/psa_ocelotapigwspa:%VERSION%
 docker tag psa_aspmvcweb:%VERSION% %REGISTRY%/psa_aspmvcweb:%VERSION%
 docker tag psa_spaweb:%VERSION% %REGISTRY%/psa_spaweb:%VERSION%
 
@@ -60,6 +61,7 @@ docker push %REGISTRY%/psa_storeapi:%VERSION%
 docker push %REGISTRY%/psa_customerapi:%VERSION%
 docker push %REGISTRY%/psa_identityapi:%VERSION%
 docker push %REGISTRY%/psa_ocelotapigw:%VERSION%
+docker push %REGISTRY%/psa_ocelotapigwspa:%VERSION%
 docker push %REGISTRY%/psa_aspmvcweb:%VERSION%
 docker push %REGISTRY%/psa_spaweb:%VERSION%
 
@@ -88,6 +90,7 @@ kubectl -n psa-dev create secret generic secret-store-api --from-file=Configs-Se
 kubectl -n psa-dev create secret generic secret-customer-api --from-file=Configs-Secrets/k8s-secret-customer-api.json
 kubectl -n psa-dev create secret generic secret-identity-api --from-file=Configs-Secrets/k8s-secret-identity-api.json
 kubectl -n psa-dev create secret generic secret-ocelot-api-gw --from-file=Configs-Secrets/k8s-secret-ocelot-api-gw.json
+kubectl -n psa-dev create secret generic secret-ocelot-api-gw-spa --from-file=Configs-Secrets/k8s-secret-ocelot-api-gw-spa.json
 kubectl -n psa-dev create secret generic secret-aspmvc-web --from-file=Configs-Secrets/k8s-secret-aspmvc-web.json
 kubectl -n psa-dev create secret tls psa-dev-local-secret --key Configs-Secrets/psa-dev.local.key --cert Configs-Secrets/psa-dev.local.crt
 
@@ -97,6 +100,7 @@ kubectl -n psa-dev create -f Service/store-api-service.yaml
 kubectl -n psa-dev create -f Service/customer-api-service.yaml
 kubectl -n psa-dev create -f Service/identity-api-service.yaml
 kubectl -n psa-dev create -f Service/ocelot-api-gw-service.yaml
+kubectl -n psa-dev create -f Service/ocelot-api-gw-spa-service.yaml
 kubectl -n psa-dev create -f Service/aspmvc-web-service.yaml
 kubectl -n psa-dev create -f Service/spa-web-service.yaml
 
@@ -106,6 +110,7 @@ kubectl -n psa-dev create -f Deployment/store-api-deployment.yaml
 kubectl -n psa-dev create -f Deployment/customer-api-deployment.yaml
 kubectl -n psa-dev create -f Deployment/identity-api-deployment.yaml
 kubectl -n psa-dev create -f Deployment/ocelot-api-gw-deployment.yaml
+kubectl -n psa-dev create -f Deployment/ocelot-api-gw-spa-deployment.yaml
 kubectl -n psa-dev create -f Deployment/aspmvc-web-deployment.yaml
 kubectl -n psa-dev create -f Deployment/spa-web-deployment.yaml
 
@@ -115,6 +120,7 @@ kubectl -n psa-dev rollout resume deployments/store-api-deploy
 kubectl -n psa-dev rollout resume deployments/customer-api-deploy
 kubectl -n psa-dev rollout resume deployments/identity-api-deploy
 kubectl -n psa-dev rollout resume deployments/ocelot-api-gw-deploy
+kubectl -n psa-dev rollout resume deployments/ocelot-api-gw-spa-deploy
 kubectl -n psa-dev rollout resume deployments/aspmvc-web-deploy
 kubectl -n psa-dev rollout resume deployments/spa-web-deploy
 

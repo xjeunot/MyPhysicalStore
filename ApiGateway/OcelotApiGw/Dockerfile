@@ -1,4 +1,9 @@
 FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
+#Download Package Personnal CA Security : Start Section
+WORKDIR /usr/local/share/ca-certificates
+COPY Security/Xjeunot_CA.crt Xjeunot_CA.crt
+RUN update-ca-certificates
+#Download Package Personnal CA Security : End Section
 WORKDIR /app
 EXPOSE 5001
 
@@ -19,11 +24,6 @@ FROM build AS publish
 RUN dotnet publish "OcelotApiGw.csproj" -c Release -o /app
 
 FROM base AS final
-#Download Package Personnal CA Security : Start Section
-WORKDIR /usr/local/share/ca-certificates
-COPY Security/Xjeunot_CA.crt Xjeunot_CA.crt
-RUN update-ca-certificates
-#Download Package Personnal CA Security : End Section
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "OcelotApiGw.dll"]

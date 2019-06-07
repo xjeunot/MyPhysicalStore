@@ -110,6 +110,29 @@ services:
       - Cluster__CertificateSecretPassword=${PSA_OCELOTAPIGW_CLUSTER_CERTIFICATESECRETPASSWORD}
       - KestrelNoClusterHttpsCertFile__Path=${PSA_OCELOTAPIGW_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
       - KestrelNoClusterHttpsCertFile__Password=${PSA_OCELOTAPIGW_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
+    expose:
+      - "5001"
+    networks:
+      - apinetwork
+      - ocelotapigwnetwork
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
+
+  ocelot-api-gw-spa:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ClusterMode=${PSA_OCELOTAPIGWSPA_CLUSTERMODE}
+      - K8s__SecretFile=${PSA_OCELOTAPIGWSPA_K8S_SECRETFILE}
+      - Azure__EventBusConnection=${PSA_OCELOTAPIGWSPA_AZURE_EVENTBUSCONNECTION}
+      - Azure__EventBusEntityPath=${PSA_OCELOTAPIGWSPA_AZURE_EVENTBUSENTITYPATH}
+      - Azure__SubscriptionClientName=${PSA_OCELOTAPIGWSPA_AZURE_SUBSCRIPTIONCLIENTNAME}
+      - Azure__KeyVaultName=${PSA_OCELOTAPIGWSPA_AZURE_KEYVAULTNAME}
+      - Azure__AzureADApplicationId=${PSA_OCELOTAPIGWSPA_AZURE_AZUREADAPPLICATIONID}
+      - Azure__AzureADPassword=${PSA_OCELOTAPIGWSPA_AZURE_AZUREADPASSWORD}
+      - Cluster__CertificateSecretName=${PSA_OCELOTAPIGWSPA_CLUSTER_CERTIFICATESECRETNAME}
+      - Cluster__CertificateSecretPassword=${PSA_OCELOTAPIGWSPA_CLUSTER_CERTIFICATESECRETPASSWORD}
+      - KestrelNoClusterHttpsCertFile__Path=${PSA_OCELOTAPIGWSPA_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
+      - KestrelNoClusterHttpsCertFile__Password=${PSA_OCELOTAPIGWSPA_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
     ports:
       - "44301:5001"
     networks:
@@ -142,7 +165,7 @@ services:
 
   spa-web:
     ports:
-      - "80:80"
+      - "8080:80"
     networks:
       - webspanetwork
     volumes:

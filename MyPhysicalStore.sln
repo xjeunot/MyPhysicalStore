@@ -46,6 +46,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{26009590
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConvertCert", "Tools\ConvertCert\ConvertCert.csproj", "{5495C86E-097B-444B-9B4C-492A72E2606C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGwSpa", "ApiGateway\OcelotApiGwSpa\OcelotApiGwSpa.csproj", "{8C54DFCD-4D3E-43C8-873D-9DF5F95A2B87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,10 @@ Global
 		{5495C86E-097B-444B-9B4C-492A72E2606C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5495C86E-097B-444B-9B4C-492A72E2606C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5495C86E-097B-444B-9B4C-492A72E2606C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C54DFCD-4D3E-43C8-873D-9DF5F95A2B87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C54DFCD-4D3E-43C8-873D-9DF5F95A2B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C54DFCD-4D3E-43C8-873D-9DF5F95A2B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C54DFCD-4D3E-43C8-873D-9DF5F95A2B87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +125,7 @@ Global
 		{321A7B34-62DD-4082-8F52-BA8CA5400599} = {CA99DCF7-0031-4AF7-B676-34A8A748A54B}
 		{4E97581D-36D1-4CD4-BA35-E34ADE851F64} = {F8212D74-FFEA-4FBF-BE23-683F660947E5}
 		{5495C86E-097B-444B-9B4C-492A72E2606C} = {26009590-B68E-40A4-8A11-FF3BFDD6BE75}
+		{8C54DFCD-4D3E-43C8-873D-9DF5F95A2B87} = {CA99DCF7-0031-4AF7-B676-34A8A748A54B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B9C23FC-A823-4BBD-9B45-B3E4FF91B706}

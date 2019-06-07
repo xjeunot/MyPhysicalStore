@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: psa-dev-ingress
   annotations:
-    nginx.org/ssl-services: "ocelot-api-gw"
+    nginx.org/ssl-services: "ocelot-api-gw-spa"
 #    nginx.org/rewrites: "serviceName=spa-web rewrite=/"
 spec:
   tls:
@@ -20,5 +20,5 @@ spec:
           servicePort: 80
       - path: /api
         backend:
-          serviceName: ocelot-api-gw
+          serviceName: ocelot-api-gw-spa
           servicePort: 5001

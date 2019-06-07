@@ -14,16 +14,16 @@ COPY Security/cert_rootcagfi.crt cert_rootcagfi.crt
 RUN update-ca-certificates
 #Download Package Enterprise CA Security : End Section
 WORKDIR /src
-COPY ["Services/Identity/Identity.API/Identity.API.csproj", "Services/Identity/Identity.API/"]
-RUN dotnet restore "Services/Identity/Identity.API/Identity.API.csproj"
+COPY ["ApiGateway/OcelotApiGwSpa/OcelotApiGwSpa.csproj", "ApiGateway/OcelotApiGwSpa/"]
+RUN dotnet restore "ApiGateway/OcelotApiGwSpa/OcelotApiGwSpa.csproj"
 COPY . .
-WORKDIR "/src/Services/Identity/Identity.API"
-RUN dotnet build "Identity.API.csproj" -c Release -o /app
+WORKDIR "/src/ApiGateway/OcelotApiGwSpa"
+RUN dotnet build "OcelotApiGwSpa.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "Identity.API.csproj" -c Release -o /app
+RUN dotnet publish "OcelotApiGwSpa.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "Identity.API.dll"]
+ENTRYPOINT ["dotnet", "OcelotApiGwSpa.dll"]

@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environmentServer = {
-  serverStoreApi: "https://dev.docker.local:44301/api/store",
-  serverCustomerApi: "https://dev.docker.local:44301/api/customer",
-  serverIdentity : "https://dev.docker.local:44301/api/identity"
+  serverStoreApi: "/api/store",
+  serverCustomerApi: "/api/customer",
+  serverIdentity: "/api/identity"
 }
 
 export const environment = {
