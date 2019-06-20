@@ -1,0 +1,16 @@
+----------------------------------------------
+------------- Installation guide -------------
+----------------------------------------------
+
+
+
+WARNING :
+> Check that the directory "Configs-Secrets" contains the necessary files (directory not archived under GIT)
+
+
+
+Bare-Metal/Personnal Kubernetes Cluster :
+> Setup externalIPs in the file K8s-Install-Ingress-Controller.yaml
+> Execute : .\K8s-Install-Helm-Tiller.cmd --install
+> Execute : .\K8s-Install-Ingress-Controller.bat --install
+> Execute : .\K8s-Deploy-Apps.bat --install BareMetal

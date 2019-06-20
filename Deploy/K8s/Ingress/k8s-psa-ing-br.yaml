@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: psa-dev-ingress
+  name: psa-ingress-bare-metal
   annotations:
     nginx.org/ssl-services: "ocelot-api-gw-spa"
 #    nginx.org/rewrites: "serviceName=spa-web rewrite=/"
