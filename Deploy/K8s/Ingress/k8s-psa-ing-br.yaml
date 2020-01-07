@@ -22,3 +22,14 @@ spec:
         backend:
           serviceName: ocelot-api-gw-spa
           servicePort: 5001
+  - host: secours-node-2.psa-dev.local
+    http:
+      paths:
+      - path: /WebSPA
+        backend:
+          serviceName: spa-web
+          servicePort: 80
+      - path: /api
+        backend:
+          serviceName: ocelot-api-gw-spa
+          servicePort: 5001

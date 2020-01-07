@@ -1,15 +1,25 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aspmvc-web-deploy
+  labels:
+    app: my-physical-store
+    env: dev
+    component: aspmvc-web-deploy
 spec:
   paused: true
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-physical-store
+      env: dev
+      component: aspmvc-web-deploy 
   template:
     metadata:
       labels:
         app: my-physical-store
         env: dev
-        component: aspmvc-web-deploy
+        component: aspmvc-web-deploy  
     spec:
       containers:
       - name: aspmvc-web-deploy

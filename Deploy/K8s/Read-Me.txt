@@ -11,6 +11,5 @@ WARNING :
 
 Bare-Metal/Personnal Kubernetes Cluster :
 > Setup externalIPs in the file K8s-Install-Ingress-Controller.yaml
-> Execute : .\K8s-Install-Helm-Tiller.cmd --install
 > Execute : .\K8s-Install-Ingress-Controller.bat --install
 > Execute : .\K8s-Deploy-Apps.bat --install BareMetal

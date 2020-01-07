@@ -1,15 +1,25 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: identity-api-deploy
+  labels:
+    app: my-physical-store
+    env: dev
+    component: identity-api-deploy
 spec:
   paused: true
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-physical-store
+      env: dev
+      component: identity-api-deploy 
   template:
     metadata:
       labels:
         app: my-physical-store
         env: dev
-        component: identity-api-deploy
+        component: identity-api-deploy  
     spec:
       containers:
       - name: identity-api-deploy
