@@ -21,7 +21,7 @@ spec:
       - path: /api
         backend:
           serviceName: ocelot-api-gw-spa
-          servicePort: 5001
+          servicePort: 443
   - host: secours-node-2.psa-dev.local
     http:
       paths:
@@ -32,4 +32,4 @@ spec:
       - path: /api
         backend:
           serviceName: ocelot-api-gw-spa
-          servicePort: 5001
+          servicePort: 443

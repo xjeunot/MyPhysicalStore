@@ -29,7 +29,7 @@ services:
       - AuthenticationBearer__ApiName=${PSA_STOREAPI_AUTHENTICATIONBEARER_APINAME}
       - AuthenticationBearer__ApiSecret=${PSA_STOREAPI_AUTHENTICATIONBEARER_APISECRET}
     expose:
-      - "5001"
+      - "443"
     networks:
       - apinetwork
     volumes:
@@ -63,7 +63,7 @@ services:
       - AuthenticationBearer__ApiName=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APINAME}
       - AuthenticationBearer__ApiSecret=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APISECRET}
     expose:
-      - "5001"
+      - "443"
     networks:
       - apinetwork
     volumes:
@@ -89,7 +89,7 @@ services:
       #- MongoDbConfig__User=${PSA_IDENTITYAPI_MONGODBCONFIG_USER}
       #- MongoDbConfig__Password=${PSA_IDENTITYAPI_MONGODBCONFIG_PASSWORD}
     expose:
-      - "5001"
+      - "443"
     networks:
       - apinetwork
     volumes:
@@ -111,7 +111,7 @@ services:
       - KestrelNoClusterHttpsCertFile__Path=${PSA_OCELOTAPIGW_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
       - KestrelNoClusterHttpsCertFile__Password=${PSA_OCELOTAPIGW_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
     expose:
-      - "5001"
+      - "443"
     networks:
       - apinetwork
       - ocelotapigwnetwork
@@ -134,7 +134,7 @@ services:
       - KestrelNoClusterHttpsCertFile__Path=${PSA_OCELOTAPIGWSPA_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
       - KestrelNoClusterHttpsCertFile__Password=${PSA_OCELOTAPIGWSPA_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
     ports:
-      - "44301:5001"
+      - "44301:443"
     networks:
       - apinetwork
       - ocelotapigwnetwork
@@ -157,7 +157,7 @@ services:
       - KestrelNoClusterHttpsCertFile__Path=${PSA_ASPMVCWEB_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
       - KestrelNoClusterHttpsCertFile__Password=${PSA_ASPMVCWEB_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
     ports:
-      - "44302:5001"
+      - "44302:443"
     networks:
       - ocelotapigwnetwork
     volumes:

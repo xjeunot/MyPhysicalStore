@@ -26,7 +26,7 @@ namespace XJeunot.PhysicalStoreApps.Services.Identity.API
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             // TODO : OAuth2 List Users & Apps in code : For Test Only !!!!
             // Configure identity server with in-memory stores, keys, clients and resources.
@@ -38,9 +38,9 @@ namespace XJeunot.PhysicalStoreApps.Services.Identity.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }

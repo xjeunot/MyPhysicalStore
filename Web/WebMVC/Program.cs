@@ -73,7 +73,7 @@ namespace XJeunot.PhysicalStoreApps.Web.WebMVC
                 })
                 .ConfigureKestrel((context, options) =>
                 {
-                    options.Listen(IPAddress.Any, 5001, listenOptions =>
+                    options.Listen(IPAddress.Any, 443, listenOptions =>
                     {
                         listenOptions.UseHttps(BuildX509Certificate2(context.Configuration));
                     });

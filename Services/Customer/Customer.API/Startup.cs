@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -37,14 +38,14 @@ namespace XJeunot.PhysicalStoreApps.Services.Customer.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             /*
              * Add Authentication.
              */
             services.AddMvcCore()
                 .AddAuthorization()
-                .AddJsonFormatters();
+                .AddNewtonsoftJson();
             services
                 .AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
@@ -165,22 +166,35 @@ namespace XJeunot.PhysicalStoreApps.Services.Customer.API
              */
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Customer.API", Version = "v1" });
-                c.DescribeAllEnumsAsStrings();
-                c.AddSecurityDefinition("oauth2", new OAuth2Scheme
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Customer.API", Version = "v1" });
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Type = "oauth2",
-                    Flow = "password",
-                    AuthorizationUrl = $"{Configuration.GetSection("AuthenticationBearer:Authority").Value}/connect/authorize",
-                    TokenUrl = $"{Configuration.GetSection("AuthenticationBearer:Authority").Value}/connect/token",
-                    Scopes = new Dictionary<string, string>
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
                     {
-                        { "customer", "Access Customer.API" }
+                        Password = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri($"{Configuration.GetSection("AuthenticationBearer:Authority").Value}/connect/authorize"),
+                            TokenUrl = new Uri($"{Configuration.GetSection("AuthenticationBearer:Authority").Value}/connect/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { "customer", "Access Customer.API" }
+                            }
+                        }
                     }
                 });
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    { "oauth2", Enumerable.Empty<string>() },
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
+                        },
+                        new[]
+                        {
+                            "customer"
+                        }
+                    }
                 });
             });
 
@@ -194,9 +208,9 @@ namespace XJeunot.PhysicalStoreApps.Services.Customer.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -211,7 +225,6 @@ namespace XJeunot.PhysicalStoreApps.Services.Customer.API
             app.UseAuthentication();
 
             app.UseHttpsRedirection();
-            app.UseMvc();
 
             // Configuration bus Subcription.
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();

@@ -1,29 +1,27 @@
-FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 #Download Package Personnal CA Security : Start Section
 WORKDIR /usr/local/share/ca-certificates
 COPY Security/Xjeunot_CA.crt Xjeunot_CA.crt
 RUN update-ca-certificates
 #Download Package Personnal CA Security : End Section
 WORKDIR /app
-EXPOSE 5001
+EXPOSE 80
+EXPOSE 443
 
-FROM microsoft/dotnet:2.2-sdk AS build
-#Download Package Enterprise CA Security : Start Section
-WORKDIR /usr/local/share/ca-certificates
-COPY Security/cert_rootcagfi.crt cert_rootcagfi.crt
-RUN update-ca-certificates
-#Download Package Enterprise CA Security : End Section
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["ApiGateway/OcelotApiGwSpa/OcelotApiGwSpa.csproj", "ApiGateway/OcelotApiGwSpa/"]
 RUN dotnet restore "ApiGateway/OcelotApiGwSpa/OcelotApiGwSpa.csproj"
 COPY . .
 WORKDIR "/src/ApiGateway/OcelotApiGwSpa"
-RUN dotnet build "OcelotApiGwSpa.csproj" -c Release -o /app
+RUN dotnet build "OcelotApiGwSpa.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "OcelotApiGwSpa.csproj" -c Release -o /app
+RUN dotnet publish "OcelotApiGwSpa.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "OcelotApiGwSpa.dll"]

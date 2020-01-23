@@ -8,7 +8,7 @@ metadata:
     component: customer-api
 spec:
   ports:
-  - port: 5001
+  - port: 443
   selector:
     app: my-physical-store
     env: dev

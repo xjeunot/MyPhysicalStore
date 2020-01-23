@@ -8,7 +8,7 @@ metadata:
     component: aspmvc-web
 spec:
   ports:
-  - port: 5001
+  - port: 443
   selector:
     app: my-physical-store
     env: dev

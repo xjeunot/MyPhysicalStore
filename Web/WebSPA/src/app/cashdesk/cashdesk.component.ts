@@ -5,8 +5,7 @@ import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 import { CashDesk} from '../shared/models/cashdesk';
-import { CashDeskService } from '../shared/services/cash-desk.service'
-import { resetComponentState } from '@angular/core/src/render3/state';
+import { CashDeskService } from '../shared/services/cash-desk.service';
 
 @Component({
   selector: 'app-cashdesk',
