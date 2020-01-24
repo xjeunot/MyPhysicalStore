@@ -73,30 +73,11 @@ namespace XJeunot.PhysicalStoreApps.ApiGateway.OcelotApiGw
                 })
                 .ConfigureKestrel((context, options) =>
                 {
-                    options.Listen(IPAddress.Any, 443, listenOptions =>
+                    options.Listen(IPAddress.Any, 80);
+                    /*options.Listen(IPAddress.Any, 443, listenOptions =>
                     {
-                        listenOptions.UseHttps(BuildX509Certificate2(context.Configuration));
-                    });
+                        listenOptions.UseHttps(BuildX509Certificate2(context.Configuration))!!!!!!!!!!!!!
+                    });*/
                 });
-
-        private static X509Certificate2 BuildX509Certificate2(IConfiguration configuration)
-        {
-            if ((configuration["ClusterMode"] == Program.CLUSTER_AZURE) ||
-                (configuration["ClusterMode"] == Program.CLUSTER_KUBERNETE_ALONE))
-            {
-                string strCertificateSecretName = configuration["Cluster:CertificateSecretName"];
-                string strCertificateSecretPassword = configuration["Cluster:CertificateSecretPassword"];
-                string strCertificateData = configuration[strCertificateSecretName];
-                string strCertificatePassword = configuration[strCertificateSecretPassword];
-                var pfxBytes = Convert.FromBase64String(strCertificateData);
-                return new X509Certificate2(pfxBytes, strCertificatePassword);
-            }
-            else
-            {
-                return new X509Certificate2(
-                    configuration.GetSection("KestrelNoClusterHttpsCertFile:Path").Value,
-                    configuration.GetSection("KestrelNoClusterHttpsCertFile:Password").Value);
-            }
-        }
     }
 }

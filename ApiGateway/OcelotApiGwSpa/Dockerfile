@@ -1,11 +1,6 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
-#Download Package Personnal CA Security : Start Section
-WORKDIR /usr/local/share/ca-certificates
-COPY Security/Xjeunot_CA.crt Xjeunot_CA.crt
-RUN update-ca-certificates
-#Download Package Personnal CA Security : End Section
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443

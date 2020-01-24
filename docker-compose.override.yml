@@ -29,11 +29,9 @@ services:
       - AuthenticationBearer__ApiName=${PSA_STOREAPI_AUTHENTICATIONBEARER_APINAME}
       - AuthenticationBearer__ApiSecret=${PSA_STOREAPI_AUTHENTICATIONBEARER_APISECRET}
     expose:
-      - "443"
+      - "80"
     networks:
       - apinetwork
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
   customer-api:
     environment:
@@ -63,11 +61,9 @@ services:
       - AuthenticationBearer__ApiName=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APINAME}
       - AuthenticationBearer__ApiSecret=${PSA_CUSTOMERAPI_AUTHENTICATIONBEARER_APISECRET}
     expose:
-      - "443"
+      - "80"
     networks:
       - apinetwork
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
   identity-api:
     environment:
@@ -89,11 +85,9 @@ services:
       #- MongoDbConfig__User=${PSA_IDENTITYAPI_MONGODBCONFIG_USER}
       #- MongoDbConfig__Password=${PSA_IDENTITYAPI_MONGODBCONFIG_PASSWORD}
     expose:
-      - "443"
+      - "80"
     networks:
       - apinetwork
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
   ocelot-api-gw:
     environment:
@@ -111,12 +105,10 @@ services:
       - KestrelNoClusterHttpsCertFile__Path=${PSA_OCELOTAPIGW_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
       - KestrelNoClusterHttpsCertFile__Password=${PSA_OCELOTAPIGW_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
     expose:
-      - "443"
+      - "80"
     networks:
       - apinetwork
       - ocelotapigwnetwork
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
   ocelot-api-gw-spa:
     environment:
@@ -134,12 +126,10 @@ services:
       - KestrelNoClusterHttpsCertFile__Path=${PSA_OCELOTAPIGWSPA_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
       - KestrelNoClusterHttpsCertFile__Password=${PSA_OCELOTAPIGWSPA_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
     ports:
-      - "44301:443"
+      - "44301:80"
     networks:
       - apinetwork
       - ocelotapigwnetwork
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
   aspmvc-web:
     environment:
@@ -157,19 +147,9 @@ services:
       - KestrelNoClusterHttpsCertFile__Path=${PSA_ASPMVCWEB_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PATH}
       - KestrelNoClusterHttpsCertFile__Password=${PSA_ASPMVCWEB_KESTREL_NOCLUSTER_HTTPS_CERT_FILE_PASSWORD}
     ports:
-      - "44302:443"
+      - "44302:80"
     networks:
       - ocelotapigwnetwork
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
-
-  spa-web:
-    ports:
-      - "8080:80"
-    networks:
-      - webspanetwork
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
 
 networks:
   apinetwork:
